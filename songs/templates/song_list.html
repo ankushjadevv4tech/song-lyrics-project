@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Song Summary App - Song List{% endblock %}
+
+{% block content %}
+    <style>
+        .song-list {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center align content */
+        }
+        .song-list table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: auto; /* Center align table */
+        }
+        .song-list th, .song-list td {
+            padding: 8px;
+            border-bottom: 1px solid #555;
+            text-align: center; /* Center align column names and values */
+        }
+        .song-list th {
+            background-color: #222;
+        }
+        .song-list th:first-child, .song-list td:first-child {
+            width: 50px;
+        }
+        .pagination {
+            margin-top: 20px;
+            text-align: center; /* Center align pagination */
+        }
+        .pagination a {
+            padding: 5px 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: inherit; /* Inherit color from parent */
+        }
+        .pagination .current {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+        .title-link {
+            color:  #fab1a0; /* Inherit color from parent */
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="song-list">
+        <h1>Song List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Title</th>
+                    <th>Artist</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for song in songs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{% url 'song_details' song.pk %}" class="title-link">{{ song.title }}</a></td>
+                        <td>{{ song.artist }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if songs.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ songs.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ songs.number }} of {{ songs.paginator.num_pages }}.
+            </span>
+
+            {% if songs.has_next %}
+                <a href="?page={{ songs.next_page_number }}">next</a>
+                <a href="?page={{ songs.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Song Summary App - Song Details{% endblock %}
+
+{% block content %}
+    <style>
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+        }
+        .result p {
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .result strong {
+            font-weight: bold;
+            color: #fab1a0; /* Lighter pink color */
+            width: 100px; /* Adjust width as needed */
+            flex: 0 0 100px; /* Prevent keyword from growing */
+        }
+        .result span {
+            flex: 1; /* Allow value to grow */
+        }
+        .back-link {
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #fab1a0; /* Lighter pink color */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            display: block;
+            text-align: center;
+            transition: background-color 0.3s;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .back-link:hover {
+            background-color: #ff7675;
+        }
+    </style>
+
+    <h1>Song Details</h1>
+    <div class="result">
+        <p><strong>Artist:</strong> <span>{{ song.artist }}</span></p>
+        <p><strong>Title:</strong> <span>{{ song.title }}</span></p>
+        <p><strong>Lyrics:</strong> <span>{{ song.lyrics }}</span></p>
+        <p><strong>Summary:</strong> <span>{{ song.summary }}</span></p>
+        <p><strong>Countries:</strong> <span>{{ song.countries }}</span></p>
+        <a href="{% url 'song_list' %}" class="back-link">Back to Song List</a>
+    </div>
+{% endblock %}
